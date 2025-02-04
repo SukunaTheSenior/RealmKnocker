@@ -1,0 +1,15 @@
+# Display settings
+WINDOW_WIDTH = 600
+WINDOW_HEIGHT = 400
+START_FULLSCREEN = False
+RESOLUTIONS = [
+    (800, 600),
+    (1024, 768),
+    (1280, 720),
+    (1920, 1080)
+]
+
+# Gameplay settings
+PLAYER_SPEED = 300
+DASH_COOLDOWN_MAX = 2
+ROCK_COOLDOWN_MAX = 1.5
