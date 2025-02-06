@@ -1,30 +1,37 @@
-import pylget
+import pyglet
+import random
+from config import WINDOW_WIDTH, WINDOW_HEIGHT
 
-class Enemy(pylget.Entity):
-    def __init__(self, x, y, width=50, height=50):
-        super().__init__(x, y, width, height)
-        self.health = 3
-        self.speed = 2
-        self.direction = 1  # 1 for right, -1 for left
-        self.start_x = x
-        self.end_x = x + 200  # Adjust as needed
+class Enemy:
+    def __init__(self, batch):
+        self.size = 20  # Size of the triangle
+        self.speed = 100  # Movement speed in pixels per second
+        self.x = random.randint(0, WINDOW_WIDTH - self.size)
+        self.y = random.randint(0, WINDOW_HEIGHT - self.size)
+        self.shape = pyglet.shapes.Triangle(
+            self.x, self.y + self.size,  # Bottom-left corner
+            self.x + self.size // 2, self.y,  # Top corner
+            self.x + self.size, self.y + self.size,  # Bottom-right corner
+            color=(255, 0, 0),  # Red color
+            batch=batch
+        )
+        self.is_alive = True
 
-    def update(self, dt):
-        self.move()
+    def move_randomly(self, dt):
+        # Randomly move the enemy within the screen bounds
+        self.x += (random.choice([-1, 0, 1]) * self.speed * dt)
+        self.y += (random.choice([-1, 0, 1]) * self.speed * dt)
 
-    def move(self):
-        if self.direction == 1:
-            if self.x + self.speed < self.end_x:
-                self.x += self.speed
-            else:
-                self.direction = -1
-        else:
-            if self.x - self.speed > self.start_x:
-                self.x -= self.speed
-            else:
-                self.direction = 1
+        # Keep the enemy within the screen bounds
+        self.x = max(0, min(self.x, WINDOW_WIDTH - self.size))
+        self.y = max(0, min(self.y, WINDOW_HEIGHT - self.size))
 
-    def hit(self):
-        self.health -= 1
-        if self.health <= 0:
-            self.destroy()
+        # Update the triangle's position
+        self.shape.x = self.x
+        self.shape.y = self.y
+
+    def respawn(self):
+        # Respawn the enemy at a random position
+        self.x = random.randint(0, WINDOW_WIDTH - self.size)
+        self.y = random.randint(0, WINDOW_HEIGHT - self.size)
+        self.is_alive = True
