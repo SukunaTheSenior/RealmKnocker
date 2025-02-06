@@ -1,0 +1,141 @@
+### **1. `config.py`**
+This file contains **configuration settings** for your game. It’s like a central place to store all the constants (values that don’t change during the game).
+
+#### **What’s Inside?**
+- **Display Settings**:
+  - `WINDOW_WIDTH` and `WINDOW_HEIGHT`: The size of the game window.
+  - `START_FULLSCREEN`: Whether the game starts in fullscreen mode.
+  - `RESOLUTIONS`: A list of possible screen resolutions the player can choose from.
+
+- **Gameplay Settings**:
+  - `PLAYER_SPEED`: How fast the player moves.
+  - `DASH_COOLDOWN_MAX`: The cooldown time for the player’s dash ability.
+  - `ROCK_COOLDOWN_MAX`: The cooldown time for throwing rocks.
+
+#### **Why is it Important?**
+- It makes it easy to change game settings without digging through the code.
+- For example, if you want to make the player faster, you just change `PLAYER_SPEED` in this file.
+
+---
+
+### **2. `menu.py`**
+This file handles the **game menu system**. It’s responsible for drawing the menu, settings, and credits screens, and handling user input (like mouse clicks and key presses).
+
+#### **What’s Inside?**
+- **`MenuSystem` Class**:
+  - `draw_menu()`: Draws the main menu.
+  - `draw_settings()`: Draws the settings menu.
+  - `draw_credits()`: Draws the credits screen.
+  - `handle_click()`: Handles mouse clicks on menu buttons.
+  - `handle_key_press()`: Handles key presses (e.g., pressing ESC to go back).
+
+#### **Why is it Important?**
+- It manages the game’s UI (user interface) outside of the actual gameplay.
+- It allows players to start the game, change settings, or view credits.
+
+---
+
+### **3. `player.py`**
+This file defines the **player character** and its behavior. It handles movement, dashing, and updating the player’s position.
+
+#### **What’s Inside?**
+- **`Player` Class**:
+  - `__init__()`: Initializes the player with a rectangle shape, speed, and cooldowns.
+  - `update()`: Updates the player’s position based on keyboard input (WASD keys).
+  - Handles dashing when the player holds the Shift key.
+
+#### **Why is it Important?**
+- It controls the player’s actions and movement.
+- Without this, the player wouldn’t be able to move or interact with the game.
+
+---
+
+### **4. `rock.py`**
+This file manages the **rock-throwing mechanic**. It handles creating, updating, and drawing rocks that the player can throw.
+
+#### **What’s Inside?**
+- **`RockSystem` Class**:
+  - `throw_rock()`: Creates a rock at the player’s position and throws it toward the mouse cursor.
+  - `update()`: Updates the position of all rocks in the game.
+
+#### **Why is it Important?**
+- It adds an interactive element to the game (throwing rocks).
+- It makes the game more dynamic and fun.
+
+---
+
+### **5. `settings_manager.py`**
+This file manages the **game settings**, like screen resolution and fullscreen mode.
+
+#### **What’s Inside?**
+- **`SettingsManager` Class**:
+  - `toggle_fullscreen()`: Toggles between fullscreen and windowed mode.
+  - `next_resolution()`: Cycles through the available screen resolutions.
+  - `get_current_resolution()`: Returns the current resolution.
+
+#### **Why is it Important?**
+- It allows players to customize their gaming experience (e.g., changing resolution or going fullscreen).
+- It ensures the game looks good on different screens.
+
+---
+
+### **6. `main.py`**
+This is the **main file** that ties everything together. It creates the game window, initializes all the systems (player, rocks, menu, etc.), and runs the game loop.
+
+#### **What’s Inside?**
+- **`GameWindow` Class**:
+  - `__init__()`: Initializes the game window, player, rocks, menu, and enemies.
+  - `on_draw()`: Draws everything on the screen (player, rocks, enemies, etc.).
+  - `update()`: Updates the game state (player movement, rock positions, enemy movement).
+  - Handles mouse and keyboard input.
+
+#### **Why is it Important?**
+- It’s the backbone of the game. Without this, nothing would run.
+- It manages the game loop, which keeps the game running and updates everything 60 times per second (or more).
+
+---
+
+### **7. `enemy.py`**
+This file defines the **enemy behavior**. It handles creating, moving, and respawning enemies.
+
+#### **What’s Inside?**
+- **`Enemy` Class**:
+  - `__init__()`: Initializes an enemy with a red triangle shape and random position.
+  - `move_randomly()`: Moves the enemy randomly within the screen bounds.
+  - `respawn()`: Respawns the enemy at a random position when it goes off-screen.
+
+#### **Why is it Important?**
+- It adds challenge to the game by introducing enemies that move around.
+- It makes the game more engaging and dynamic.
+
+---
+
+### **How Everything Works Together**
+1. **Game Starts**:
+   - `main.py` creates the game window and initializes all systems (player, rocks, menu, enemies).
+
+2. **Menu System**:
+   - The player interacts with the menu (`menu.py`) to start the game, change settings, or view credits.
+
+3. **Gameplay**:
+   - The player controls their character (`player.py`) using the keyboard.
+   - The player can throw rocks (`rock.py`) by pressing a key.
+   - Enemies (`enemy.py`) move around randomly and respawn when they go off-screen.
+
+4. **Game Loop**:
+   - The `update()` method in `main.py` runs continuously, updating the player, rocks, and enemies.
+   - The `on_draw()` method draws everything on the screen.
+
+5. **Settings**:
+   - The player can change settings (like resolution) using the `SettingsManager` (`settings_manager.py`).
+
+---
+
+### **Summary**
+- **`config.py`**: Stores game settings.
+- **`menu.py`**: Handles the game menu and UI.
+- **`player.py`**: Controls the player character.
+- **`rock.py`**: Manages rock-throwing mechanics.
+- **`settings_manager.py`**: Manages game settings.
+- **`main.py`**: Runs the game and ties everything together.
+- **`enemy.py`**: Adds enemies to the game.
