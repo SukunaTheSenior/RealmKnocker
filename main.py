@@ -5,7 +5,8 @@ from player import Player
 from rock import RockSystem
 from menu import MenuSystem
 from settings_manager import SettingsManager
-from enemy import Enemy
+from enemy import Enemy  # <-- Import the Enemy class
+
 class GameWindow(pyglet.window.Window):
     def __init__(self):
         super().__init__(WINDOW_WIDTH, WINDOW_HEIGHT, 
@@ -19,6 +20,9 @@ class GameWindow(pyglet.window.Window):
         self.player = Player(self.batch)
         self.rock_system = RockSystem(self.batch)
         self.menu_system = MenuSystem(self, self.settings_manager)
+        
+        # Enemies
+        self.enemies = [Enemy(self.batch) for _ in range(3)]  # Spawn 3 enemies
         
         # Game state
         self.mouse_pos = (0, 0)
@@ -54,6 +58,10 @@ class GameWindow(pyglet.window.Window):
             self.player.update(dt, self.keys, self.mouse_pos, 
                              self.handle_dash)
             self.rock_system.update(dt)
+            
+            # Update enemies
+            for enemy in self.enemies:
+                enemy.move_randomly(dt)
 
     def handle_dash(self, duration):
         dx = self.mouse_pos[0] - self.player.shape.x
