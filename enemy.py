@@ -30,8 +30,15 @@ class Enemy:
         self.shape.x = self.x
         self.shape.y = self.y
 
+        # Check if the enemy is off-screen (dead)
+        if self.x <= 0 or self.x >= WINDOW_WIDTH - self.size or \
+           self.y <= 0 or self.y >= WINDOW_HEIGHT - self.size:
+            self.respawn()
+
     def respawn(self):
         # Respawn the enemy at a random position
         self.x = random.randint(0, WINDOW_WIDTH - self.size)
         self.y = random.randint(0, WINDOW_HEIGHT - self.size)
+        self.shape.x = self.x
+        self.shape.y = self.y
         self.is_alive = True
