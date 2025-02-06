@@ -5,7 +5,7 @@ from player import Player
 from rock import RockSystem
 from menu import MenuSystem
 from settings_manager import SettingsManager
-
+from enemy import Enemy
 class GameWindow(pyglet.window.Window):
     def __init__(self):
         super().__init__(WINDOW_WIDTH, WINDOW_HEIGHT, 
