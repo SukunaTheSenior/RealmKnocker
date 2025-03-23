@@ -138,4 +138,4 @@ This file defines the **enemy behavior**. It handles creating, moving, and respa
 - **`rock.py`**: Manages rock-throwing mechanics.
 - **`settings_manager.py`**: Manages game settings.
 - **`main.py`**: Runs the game and ties everything together.
-- **`enemy.py`**: Adds enemies to the game.
+- **`enemy.py`**: Adds enemies to the game...
